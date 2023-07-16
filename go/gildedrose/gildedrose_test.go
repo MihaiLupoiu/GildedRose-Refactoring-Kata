@@ -144,6 +144,22 @@ func Test_BackstagePassesItem(t *testing.T) {
 			SellIn:  0,
 			Quality: 5,
 		},
+		{
+			Name:    "Backstage passes to a TAFKAL80ETC concert",
+			SellIn:  3,
+			Quality: 49,
+		},
+		{
+			Name:    "Backstage passes to a TAFKAL80ETC concert",
+			SellIn:  9,
+			Quality: 49,
+		},
+
+		{
+			Name:    "Backstage passes to a TAFKAL80ETC concert",
+			SellIn:  15,
+			Quality: 50,
+		},
 	}
 
 	gildedrose.UpdateQuality(items)
@@ -161,13 +177,42 @@ func Test_BackstagePassesItem(t *testing.T) {
 	// Quality drops to 0 after the concert
 	assert.Equal(t, items[3].SellIn, -1, "SellIn should be one less than previusly.")
 	assert.Equal(t, items[3].Quality, 0, "Quality should be 0.")
+
+	assert.Equal(t, items[4].Quality, 50, "Quality should max 50.")
+	assert.Equal(t, items[4].SellIn, 2, "SellIn should be one less than previusly.")
+
+	assert.Equal(t, items[5].Quality, 50, "Quality should max 50.")
+	assert.Equal(t, items[5].SellIn, 8, "SellIn should be one less than previusly.")
+
+	assert.Equal(t, items[6].Quality, 50, "Quality should max 50.")
+	assert.Equal(t, items[6].SellIn, 14, "SellIn should be one less than previusly.")
+}
+
+func Test_ConjuredItem(t *testing.T) {
+	var items = []*gildedrose.Item{
+		{
+			Name:    "Conjured",
+			SellIn:  5,
+			Quality: 5,
+		},
+		{
+			Name:    "Conjured",
+			SellIn:  0,
+			Quality: 5,
+		},
+	}
+
+	gildedrose.UpdateQuality(items)
+
+	// “Conjured” items degrade in Quality twice as fast as normal items
+	// assert.Equal(t, items[0].SellIn, 4, "SellIn should be one less than previusly.")
+	// assert.Equal(t, items[0].Quality, 3, "Quality should be two less than previusly.")
+	// assert.Equal(t, items[0].SellIn, 4, "SellIn should be one less than previusly.")
+	// assert.Equal(t, items[0].Quality, 1, "Quality should be four times less than previusly.")
 }
 
 // TODO:
 
-// Special Items
-
-// “Conjured” items degrade in Quality twice as fast as normal items
-
 // Test multiple items.
 // Test multiple ticks of time.
+// Todo make test in table format.
