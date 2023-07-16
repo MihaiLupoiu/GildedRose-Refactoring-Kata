@@ -5,11 +5,13 @@ import (
 
 	"github.com/emilybache/gildedrose-refactoring-kata/gildedrose"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/emilybache/gildedrose-refactoring-kata/gildedrose/items"
 )
 
 func Test_Foo(t *testing.T) {
-	var items = []*gildedrose.Item{
-		{"foo", 0, 0},
+	var items = []*items.Item{
+		{Name: "foo", SellIn: 0, Quality: 0},
 	}
 
 	gildedrose.UpdateQuality(items)
@@ -17,20 +19,20 @@ func Test_Foo(t *testing.T) {
 	assert.Equal(t, items[0].Name, "foo", "Name should not change after updating quality")
 }
 
-func Test_NormalItem(t *testing.T) {
-	var items = []*gildedrose.Item{
+func Test_StandardItem(t *testing.T) {
+	var items = []*items.Item{
 		{
-			Name:    "NormalItem",
+			Name:    "StandardItem",
 			SellIn:  5,
 			Quality: 5,
 		},
 		{
-			Name:    "NormalItem",
+			Name:    "StandardItem",
 			SellIn:  0,
 			Quality: 5,
 		},
 		{
-			Name:    "NormalItem",
+			Name:    "StandardItem",
 			SellIn:  5,
 			Quality: 0,
 		},
@@ -54,7 +56,7 @@ func Test_NormalItem(t *testing.T) {
 }
 
 func Test_AgedBrieItem(t *testing.T) {
-	var items = []*gildedrose.Item{
+	var items = []*items.Item{
 		{
 			Name:    "Aged Brie",
 			SellIn:  5,
@@ -107,7 +109,7 @@ func Test_AgedBrieItem(t *testing.T) {
 }
 
 func Test_SulfurasItem(t *testing.T) {
-	var items = []*gildedrose.Item{
+	var items = []*items.Item{
 		{
 			Name:    "Sulfuras, Hand of Ragnaros",
 			SellIn:  5,
@@ -123,7 +125,7 @@ func Test_SulfurasItem(t *testing.T) {
 }
 
 func Test_BackstagePassesItem(t *testing.T) {
-	var items = []*gildedrose.Item{
+	var items = []*items.Item{
 		{
 			Name:    "Backstage passes to a TAFKAL80ETC concert",
 			SellIn:  15,
@@ -189,7 +191,7 @@ func Test_BackstagePassesItem(t *testing.T) {
 }
 
 func Test_ConjuredItem(t *testing.T) {
-	var items = []*gildedrose.Item{
+	var items = []*items.Item{
 		{
 			Name:    "Conjured",
 			SellIn:  5,
@@ -205,10 +207,10 @@ func Test_ConjuredItem(t *testing.T) {
 	gildedrose.UpdateQuality(items)
 
 	// “Conjured” items degrade in Quality twice as fast as normal items
-	// assert.Equal(t, items[0].SellIn, 4, "SellIn should be one less than previusly.")
-	// assert.Equal(t, items[0].Quality, 3, "Quality should be two less than previusly.")
-	// assert.Equal(t, items[0].SellIn, 4, "SellIn should be one less than previusly.")
-	// assert.Equal(t, items[0].Quality, 1, "Quality should be four times less than previusly.")
+	assert.Equal(t, items[0].SellIn, 4, "SellIn should be one less than previusly.")
+	assert.Equal(t, items[0].Quality, 3, "Quality should be two less than previusly.")
+	assert.Equal(t, items[1].SellIn, -1, "SellIn should be one less than previusly.")
+	assert.Equal(t, items[1].Quality, 1, "Quality should be four times less than previusly.")
 }
 
 // TODO:
