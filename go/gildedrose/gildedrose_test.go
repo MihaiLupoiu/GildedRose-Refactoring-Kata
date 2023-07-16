@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/emilybache/gildedrose-refactoring-kata/gildedrose"
+	"github.com/stretchr/testify/assert"
 )
 
 func Test_Foo(t *testing.T) {
@@ -13,7 +14,5 @@ func Test_Foo(t *testing.T) {
 
 	gildedrose.UpdateQuality(items)
 
-	if items[0].Name != "fixme" {
-		t.Errorf("Name: Expected %s but got %s ", "fixme", items[0].Name)
-	}
+	assert.Equal(t, items[0].Name, "foo", "Name should remain the same after updating quality")
 }
